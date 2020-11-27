@@ -3,6 +3,7 @@
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
+    "emulator": "emulator -avd Pixel_3a_API_30_x86",
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
