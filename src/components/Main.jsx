@@ -1,19 +1,28 @@
 import React from 'react';
 import Constants from 'expo-constants';
-import { Text, StyleSheet, View } from 'react-native';
+import {StyleSheet, View } from 'react-native';
 import RepositoryList from './RepositoryList';
+import Text from './Text';
+import AppBar  from './AppBar'
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: Constants.statusBarHeight,
+    
+    backgroundColor:'grey',
     flexGrow: 1,
     flexShrink: 1,
   },
+  AppBarContainer:{
+    backgroundColor: '#24292e',
+    paddingTop: Constants.statusBarHeight,
+  }
 });
 
 const Main = () => {
-  return (
+  return ( 
+  
     <View style={styles.container}>
+      <View style={styles.AppBarContainer}><AppBar /></View>
       <RepositoryList/>
     </View>
   );
