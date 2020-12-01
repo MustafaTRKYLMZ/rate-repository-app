@@ -1,9 +1,8 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet ,ScrollView } from 'react-native';
 import Constants from 'expo-constants';
 import Text from './Text';
 import AppBarTab from './AppBarTab';
-import {TouchableWithoutFeedback} from 'react-native';
 
 
 const styles = StyleSheet.create({
@@ -23,10 +22,10 @@ const styles = StyleSheet.create({
 const AppBar = () => {
   return (
        <View style={styles.flexContainer} >
-               <TouchableWithoutFeedback onPress={() => alert('Pressed!')}>
-                <AppBarTab />
-            </TouchableWithoutFeedback>
-           
+             <ScrollView horizontal>
+                <AppBarTab link="/" name="Repositories" />
+                <AppBarTab link="/SignIn" name="Sign In" />
+              </ScrollView>
        </View>
   )
    

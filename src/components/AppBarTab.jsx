@@ -1,7 +1,9 @@
 import React from 'react';
-import { View, StyleSheet,Text } from 'react-native';
+import { View, StyleSheet,TouchableWithoutFeedback } from 'react-native';
+import { Link } from 'react-router-native';
 import Constants from 'expo-constants';
-//import Text from './Text'
+import SignIn from './SignIn';
+import Text from './Text'
 
 const styles = StyleSheet.create({
     flexContainer: {
@@ -10,20 +12,24 @@ const styles = StyleSheet.create({
       justifyContent: 'space-around',
       padding: 30,
       alignItems:'stretch',
-      alignContent:'flex-end',
+      alignContent:'flex-start',
       flexGrow:0,
     },
     flexButtonColor:{
         color:'#F8F8FF',
+        justifyContent: 'space-around',
     }
   });
  
 
-const AppBarTab = () => {
+const AppBarTab = ({name,link}) => {
   return (
        <View style={styles.flexContainer}>
-           <Text style={styles.flexButtonColor}>Repositories</Text>
-           <Text style={styles.flexButtonColor}>XXX</Text>
+          <View>
+          <Link to={link} component={TouchableWithoutFeedback} >
+            <Text style={styles.flexButtonColor}>{name}</Text>
+            </Link>
+          </View>
        </View>
   )
    
