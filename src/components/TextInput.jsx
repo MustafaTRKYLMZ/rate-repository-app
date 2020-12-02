@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
 });
 
 const TextInput = ({ style, error, ...props }) => {
-  const textInputStyle =  [styles.input, style];
+  let textInputStyle =  [styles.input, style];
   
   if (error) {
     textInputStyle = [...textInputStyle, styles.inputError];
