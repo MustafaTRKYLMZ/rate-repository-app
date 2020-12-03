@@ -2,7 +2,7 @@ import React,{ useState, useEffect } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import {Text} from 'react-native'
 
-import { GET_REPOSITORIES } from '../graphql/queries';
+import { GET_REPOSITORIES } from '../graphql/queries/repositories';
 
 const useRepositories = () => {
   

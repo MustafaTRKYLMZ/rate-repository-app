@@ -1,5 +1,6 @@
 import ApolloClient from 'apollo-boost';
 import Constants from 'expo-constants';
+
 const createApolloClient = () => {
     const uri=Constants.manifest.extra.uri;
   return new ApolloClient({
@@ -9,3 +10,5 @@ const createApolloClient = () => {
 };
 
 export default createApolloClient;
+
+//Continue from Storing data in the user's device

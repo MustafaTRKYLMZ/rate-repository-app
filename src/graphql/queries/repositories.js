@@ -9,7 +9,7 @@ export const GET_REPOSITORIES = gql`
             ratingAverage,
             stargazersCount,
             forksCount,
-          ownerAvatarUrl,
+            ownerAvatarUrl,
             language,
             description,
             reviewCount,

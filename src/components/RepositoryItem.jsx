@@ -1,5 +1,5 @@
 import React from 'react';
-import {  View, StyleSheet, Image } from 'react-native';
+import {  View, StyleSheet, Image ,ImageBackground} from 'react-native';
 import ItemsShow from './ItemsShow'
 import Text from './Text'
 //Text style ayrı componente ayır 
@@ -53,12 +53,16 @@ const styles = StyleSheet.create({
         justifyContent:'flex-start',
         alignItems: 'flex-start'
     },
+    image: {
+      flex: 1,
+      resizeMode: "cover",
+      justifyContent: "center"
+    },
   });
-
 
 const RepositoryItem = ({item}) => {
  return (
-      <View style={styles.flexContainerTop}>
+      <View style={styles.flexContainerTop}> 
         <View style={styles.flexContainerFirst}>
             <View style={styles.flexContainerTwo}>
                 <View style={styles.flexContainerFirst}>
@@ -66,7 +70,7 @@ const RepositoryItem = ({item}) => {
                        style={styles.tinyLogo}
                        source={{ uri: item.ownerAvatarUrl }}
                   />
-                </View>
+                </View> 
                 <View style={styles.flexContainerExtra}>
                    <View>
                      <Text fontWeight='bold'> {item.fullName}</Text>
@@ -77,11 +81,11 @@ const RepositoryItem = ({item}) => {
                   <View style={styles.languageContainer}>
                       <Text color='textSecondary' style={styles.styleLanguage}>  {item.language}</Text>
                   </View>
-                </View>
+                </View> 
             </View>
             <View style={styles.flexContainerThird}>
-              <ItemsShow items={item} />
-            </View>
+              <ItemsShow items={item} /> 
+            </View> 
         </View>
     </View>
  )   
