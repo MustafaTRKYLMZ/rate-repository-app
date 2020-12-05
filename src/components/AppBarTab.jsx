@@ -5,6 +5,9 @@ import Constants from 'expo-constants';
 import SignIn from './SignIn';
 import Text from './Text'
 
+
+
+
 const styles = StyleSheet.create({
     flexContainer: {
       display: 'flex',
@@ -20,13 +23,14 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
     }
   });
- 
+
+
 
 const AppBarTab = ({name,link}) => {
   return (
        <View style={styles.flexContainer}>
           <View>
-          <Link to={link} component={TouchableWithoutFeedback} >
+          <Link to={link} component={TouchableWithoutFeedback}>
             <Text style={styles.flexButtonColor}>{name}</Text>
             </Link>
           </View>
@@ -36,3 +40,17 @@ const AppBarTab = ({name,link}) => {
 };
 
 export default AppBarTab;
+
+
+export const AppBarTabSingOut = ({SignOut}) => {
+  return (
+       <View style={styles.flexContainer}>
+          <View>
+          <TouchableWithoutFeedback onPress={SignOut}>
+                  <Text style={styles.flexButtonColor}>SignOut</Text>
+          </TouchableWithoutFeedback>
+          </View>
+       </View>
+  )
+   
+};

@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {use} from 'react';
 import Text from './Text';
 import {  StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import { Formik } from 'formik';
 import FormikTextInput from './FormikTextInput';
-import useSignIn from '../hooks/useSignIn'
+import useSignIn from '../hooks/useSignIn';
+
+import createApolloClient from '../utils/apolloClient';
+import AuthStorageContext from '../contexts/AuthStorageContext';
 
 import * as yup from 'yup';
 
@@ -57,10 +60,10 @@ const SignIn = () => {
 
   const onSubmit = async (values) => {
     const { username, password } = values;
-console.log("valuesss",username)
+    console.log("valuesss",username)
     try {
-      const { data } = await signIn({ username, password });
-     
+      await signIn({ username, password });
+    
     } catch (e) {
       console.log(e);
     }

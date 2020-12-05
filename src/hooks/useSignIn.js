@@ -1,26 +1,30 @@
 import {AUTHORİZE} from '../graphql/mutation/authorize';
 import { useMutation } from '@apollo/client';
-import authStorage from '../utils/authStorage';
 import React, { useState, useEffect } from 'react'
+import { useHistory } from 'react-router-dom';
+import { useContext } from 'react';
+import AuthStorageContext from '../contexts/AuthStorageContext';
+import { useApolloClient } from '@apollo/client';
 
 
 const useSignIn = () => {
     const [authorize, result] = useMutation(AUTHORİZE);
+    const authStorage = useContext(AuthStorageContext);
+    const history = useHistory();
+    const client = useApolloClient();
   
     const signIn = async ({ username, password }) => {
-        authorize({
+        const {data} = await  authorize({
             variables: { username, password }
-          })
+          });
+        console.log("Authorize XXX", data)
+        await  authStorage.setAccessToken(data.authorize.accessToken);//it is working
+
+       client.resetStore();
+       history.push("/");
     };
 
-  useEffect(() => {
-    if (result.data) {
-        const storage = new authStorage ();
-        storage.setAccessToken(result.data.authorize.accessToken);//it is working
-       
-    } 
-    console.log("LoginForm if",result.data)
-  }, [result.data])
+   
 
     return [signIn, result];
   };
