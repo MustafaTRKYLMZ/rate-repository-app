@@ -1,8 +1,8 @@
 import React from 'react';
-import {  View, StyleSheet, Image ,ImageBackground} from 'react-native';
+import {  View, StyleSheet, Image ,TouchableWithoutFeedback, Button} from 'react-native';
 import ItemsShow from './ItemsShow'
 import Text from './Text'
-//Text style ayrı componente ayır 
+import * as Linking from 'expo-linking';
 
 const styles = StyleSheet.create({
     flexContainerTop: {
@@ -61,11 +61,12 @@ const styles = StyleSheet.create({
   });
 
 const RepositoryItem = ({item}) => {
+
  return (
-      <View style={styles.flexContainerTop}> 
+      <View style={styles.flexContainerTop}>
         <View style={styles.flexContainerFirst}>
             <View style={styles.flexContainerTwo}>
-                <View style={styles.flexContainerFirst}>
+                <View style={styles.flexContainerFirst} >
                   <Image
                        style={styles.tinyLogo}
                        source={{ uri: item.ownerAvatarUrl }}
@@ -73,13 +74,13 @@ const RepositoryItem = ({item}) => {
                 </View> 
                 <View style={styles.flexContainerExtra}>
                    <View>
-                     <Text fontWeight='bold'> {item.fullName}</Text>
+                     <Text testID="fullName" fontWeight='bold'> {item.fullName}</Text>
                   </View>
                   <View>
-                      <Text >{item.description}</Text> 
+                      <Text testID="description">{item.description}</Text> 
                   </View>
                   <View style={styles.languageContainer}>
-                      <Text color='textSecondary' style={styles.styleLanguage}>  {item.language}</Text>
+                      <Text testID="language" color='textSecondary' style={styles.styleLanguage}>  {item.language}</Text>
                   </View>
                 </View> 
             </View>
@@ -87,63 +88,11 @@ const RepositoryItem = ({item}) => {
               <ItemsShow items={item} /> 
             </View> 
         </View>
+        {item.singleView ? <Button onPress={()=> Linking.openURL(item.url)} title='Open in GitHub' /> : <></>}
+        
     </View>
  )   
 }
-   
 
   export default RepositoryItem;
 
-
-  
-/*
-const styles = StyleSheet.create({
-    flexContainer: {
-      display: 'flex',
-      flexDirection: 'row',
-      justifyContent: 'space-around',
-      padding: 30,
-      alignItems:'stretch',
-      alignContent:'flex-end',
-      flexGrow:0,
-    },
-    flexButtonColor:{
-        color:'#F8F8FF',
-    }
-  });
-
-
-
-  <View style={styles.flexContainerItems}>
-                      <View>
-                        <Text style={styles.bigText}>{item.stargazersCount>=1000?(Math.round(item.stargazersCount/100)/10+'k'):item.stargazersCount} </Text >
-                      </View>
-                      <View>
-                          <Text style={styles.blackText}>Stars  </Text>
-                    </View>
-                  </View>
-                  <View style={styles.flexContainerItems}>
-                      <View>
-                        <Text style={styles.bigText}> {item.forksCount>=1000?(Math.round(item.forksCount/100)/10+'k'):item.forksCount}</Text>
-                      </View>
-                      <View>
-                        <Text style={styles.blackText}>Forks</Text>
-                      </View>
-                  </View>
-                <View style={styles.flexContainerItems}>
-                    <View>
-                        <Text style={styles.bigText}> {item.reviewCount>=1000?(Math.round(item.reviewCount/100)/10+'k'):item.reviewCount}</Text>
-                    </View>
-                    <View>
-                        <Text style={styles.blackText}>Reviews</Text>
-                    </View>
-                </View>
-                <View style={styles.flexContainerItems}>
-                  <View>
-                    <Text style={styles.bigText}> {item.ratingAverage>=1000?(Math.round(item.ratingAverage/100)/10+'k'):item.ratingAverage}</Text>
-                  </View>
-                  <View>
-                    <Text style={styles.blackText}>Rating</Text>
-                  </View>
-                </View>
-  */

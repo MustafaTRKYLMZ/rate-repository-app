@@ -4,43 +4,60 @@ import {Text} from 'react-native'
 
 import { GET_REPOSITORIES } from '../graphql/queries/repositories';
 
-const useRepositories = () => {
-  
- const { data, error, loading} = useQuery(GET_REPOSITORIES,{
-  fetchPolicy: 'cache-and-network'
+const useRepositories = (sorting,search) => {
+  let variables = {};
+
+ switch (sorting) {
+   case 'highest':
+     variables = {"order":"RATING_AVERAGE", "dir": "DESC", search, first: 8}; break;
+   case 'lowest':
+     variables = {"order":"RATING_AVERAGE", "dir": "ASC", search, first: 8}; break;
+   default:
+     variables = {"order":"CREATED_AT", "dir": "DESC", search, first: 8};
+ }
+
+
+ const { data, loading, fetchMore, ...result  } = useQuery(GET_REPOSITORIES,{
+  fetchPolicy: 'cache-and-network',variables
  });
 
-if (loading)  {
-    return <Text>loading...</Text>
-  }
-  if (error)  {
-    return <Text>Error...</Text>
-  }
-  
+ const handleFetchMore = () => {
+  const canFetchMore =
+    !loading && data && data.repositories.pageInfo.hasNextPage;
 
-  return { data, loading,error};
+    if (!canFetchMore) {
+      return;
+    }
+
+
+    fetchMore({
+      query: GET_REPOSITORIES,
+      variables: {
+        after: data.repositories.pageInfo.endCursor,
+        ...variables,
+      },
+      updateQuery: (previousResult, { fetchMoreResult }) => {
+        const nextResult = {
+          repositories: {
+            ...fetchMoreResult.repositories,
+            edges: [
+              ...previousResult.repositories.edges,
+              ...fetchMoreResult.repositories.edges,
+            ],
+          },
+        };
+
+        return nextResult;
+      },
+    });
+  };
+
+  return {
+    repositories: data ? data.repositories : undefined,
+    fetchMore: handleFetchMore,
+    loading,
+    ...result,
+  };
 };
 
 export default useRepositories;
-
-
-/*
-const useRepositories = () => {
-  const [repositories, setRepositories] = useState();
-  const [loading, setLoading] = useState(false);
-
-  const fetchRepositories = async () => {
-    setLoading(true);
-
-    // Replace the IP address part with your own IP address!
-    const response = await fetch('http://192.168.1.207:5000/api/repositories');
-    const json = await response.json();
-console.log("Repository List", json)
-    setLoading(false);
-    setRepositories(json);
-  };
-
-  useEffect(() => {
-    fetchRepositories();
-  }, []);
-*/

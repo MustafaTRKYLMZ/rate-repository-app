@@ -1,7 +1,6 @@
 import React, { useContext }  from 'react';
-import { View, StyleSheet ,ScrollView, TouchableWithoutFeedback } from 'react-native';
+import { View, StyleSheet ,ScrollView } from 'react-native';
 import Constants from 'expo-constants';
-import Text from './Text';
 import AppBarTab, {AppBarTabSingOut} from './AppBarTab';
 
 import { useQuery } from '@apollo/react-hooks';
@@ -9,7 +8,6 @@ import {CURRENT_USER} from '../graphql/queries/authorizedUser'
 import AuthStorageContext from '../contexts/AuthStorageContext';
 import { useApolloClient } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
-import { Link } from 'react-router-native';
 
 const styles = StyleSheet.create({
     flexContainer: {
@@ -32,13 +30,12 @@ const styles = StyleSheet.create({
 
 
 const AppBar = () => {
-//const [authorize,result] = useMutation(AUTHORİZE);
+
 const { data, error, loading } = useQuery(CURRENT_USER)
 const authStorage = useContext(AuthStorageContext);
 
 console.log("Current data",data)
-
-
+const authorizedUser = data ? data.authorizedUser : undefined;
 
   const history = useHistory();
   const client = useApolloClient();
@@ -53,13 +50,12 @@ return  history.push("/");
   return (
        <View style={styles.flexContainer} >
              <ScrollView horizontal>
-                <AppBarTab link="/" name="Repositories" />
-               
-               {data ?<AppBarTabSingOut SignOut={SignOut} />
-               :
-             <AppBarTab link="/SignIn" name="Sign In" />
-               }
-             
+                <AppBarTab link="/" name="Repositories" show="true"/>
+                <AppBarTab link="/CreateView" name="Create View" show={authorizedUser}/>
+                <AppBarTab link="/Reviews" name="My Reviews" show={authorizedUser}/>
+                <AppBarTab link="/SignIn" name="Sign In" show={!authorizedUser} />  
+                <AppBarTab link="/SignUp" name="Sign Up" show={!authorizedUser} />
+                <AppBarTabSingOut SignOut={SignOut} show={authorizedUser}/>
               </ScrollView>
        </View>
   )

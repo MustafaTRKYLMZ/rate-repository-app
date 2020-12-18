@@ -1,12 +1,9 @@
-import React, {use} from 'react';
+import React from 'react';
 import Text from './Text';
-import {  StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
+import { StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import { Formik } from 'formik';
 import FormikTextInput from './FormikTextInput';
 import useSignIn from '../hooks/useSignIn';
-
-import createApolloClient from '../utils/apolloClient';
-import AuthStorageContext from '../contexts/AuthStorageContext';
 
 import * as yup from 'yup';
 
@@ -41,12 +38,12 @@ const initialValues = {
       .required('Password is required'),
   });
 
-const Login =({ onSubmit }) =>{
+export const SignInContainer =({ onSubmit }) =>{
 
     return (
         <View style={styles.formStyle}>
-            <FormikTextInput name="username" placeholder="Username" />
-            <FormikTextInput name="password" placeholder="Password" secureTextEntry={true} />
+            <FormikTextInput testID="usernameField"  name="username" placeholder="Username" />
+            <FormikTextInput testID="passwordField" name="password" placeholder="Password" secureTextEntry={true} />
             <TouchableWithoutFeedback onPress={onSubmit}>
                <Text color='tag' fontSize='subheading' fontWeight='bold' style={styles.button}>Sign In</Text>
             </TouchableWithoutFeedback>
@@ -75,7 +72,7 @@ const SignIn = () => {
         onSubmit={onSubmit}
         validationSchema={validationSchema}>
             
-          {({ handleSubmit }) => <Login onSubmit={handleSubmit} />}
+          {({ handleSubmit }) => <SignInContainer onSubmit={handleSubmit} />}
         </Formik>
       );
 };

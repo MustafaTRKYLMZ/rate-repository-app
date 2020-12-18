@@ -1,11 +1,7 @@
 import React from 'react';
 import { View, StyleSheet,TouchableWithoutFeedback } from 'react-native';
 import { Link } from 'react-router-native';
-import Constants from 'expo-constants';
-import SignIn from './SignIn';
 import Text from './Text'
-
-
 
 
 const styles = StyleSheet.create({
@@ -26,7 +22,10 @@ const styles = StyleSheet.create({
 
 
 
-const AppBarTab = ({name,link}) => {
+const AppBarTab = ({name,link,show}) => {
+  if(!show||show===undefined){
+    return null;
+  }
   return (
        <View style={styles.flexContainer}>
           <View>
@@ -42,7 +41,10 @@ const AppBarTab = ({name,link}) => {
 export default AppBarTab;
 
 
-export const AppBarTabSingOut = ({SignOut}) => {
+export const AppBarTabSingOut = ({SignOut,show}) => {
+  if(!show){
+    return null;
+  }
   return (
        <View style={styles.flexContainer}>
           <View>

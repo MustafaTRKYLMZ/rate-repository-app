@@ -1,6 +1,5 @@
 import {AUTHORİZE} from '../graphql/mutation/authorize';
 import { useMutation } from '@apollo/client';
-import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom';
 import { useContext } from 'react';
 import AuthStorageContext from '../contexts/AuthStorageContext';
